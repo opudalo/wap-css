@@ -25,6 +25,8 @@ describe('wap-css basics', function () {
       , style = wapCss(css, true)
     expect(style).to.exist
 
+    //log(css, style)
+
     let dict = style.transformations
     expect(dict.$warning).to.exist
     expect(dict._myid).to.exist
@@ -42,6 +44,8 @@ describe('wap-css basics', function () {
         _myid: ''
       }
     expect(style).to.exist
+
+    //log(css, style)
 
     let dict = style.transformations
     expect(dict.$warning).to.exist
@@ -91,6 +95,7 @@ describe('wap-css basics', function () {
     style.css = style.css.replace(/\s/g, '')
     css = css.replace(/\s/g, '')
 
+    //log(css, style)
     expect(style.css).to.be.equal(css)
     done()
   })
