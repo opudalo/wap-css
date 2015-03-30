@@ -1,6 +1,6 @@
 {
   "name": "wap-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "wap-css micro library",
   "authors": [
     "Eugene Chechurin <e.chechurin@gmail.com> (https://github.com/opudalo)"
@@ -13,6 +13,5 @@
     "node_modules",
     "bower_components"
   ],
-  "dependencies": {
-  }
+  "dependencies": {}
 }
