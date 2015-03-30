@@ -9,14 +9,21 @@ describe('wap-css basics', function () {
     done()
   })
 
+  let cases = [{
+    css: `div.warning { padding: 0; }
+      div#myid { padding: 0; }`,
+    transformations: {
+      $warning: '',
+      _myid: ''
+    }
+  }]
+
   it('should parse IDs and classes', function (done) {
     let css = `
       div.warning { padding: 0; }
       div#myid { padding: 0; }`
       , style = wapCss(css, true)
     expect(style).to.exist
-
-    // log(css, style)
 
     let dict = style.transformations
     expect(dict.$warning).to.exist
@@ -29,9 +36,12 @@ describe('wap-css basics', function () {
       div.warning > div.some#myid ~ div.some[foo="bar"]:first-child { padding: 0; }
       div#myid > .some.warning:not(.some) { padding: 0; }`
       , style = wapCss(css, true)
+      , transformations = {
+        $warning: '',
+        $some: '',
+        _myid: ''
+      }
     expect(style).to.exist
-
-     log(css, style)
 
     let dict = style.transformations
     expect(dict.$warning).to.exist
