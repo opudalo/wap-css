@@ -1,0 +1,18 @@
+{
+  "name": "wap-css",
+  "version": "0.0.1",
+  "description": "wap-css micro library",
+  "authors": [
+    "Eugene Chechurin <e.chechurin@gmail.com> (https://github.com/opudalo)"
+  ],
+  "main": "lib/index.js",
+  "license": "MIT",
+  "homepage": "https://github.com/opudalo/wap-css",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+  }
+}
