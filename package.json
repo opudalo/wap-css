@@ -1,6 +1,6 @@
 {
   "name": "wap-css",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "wap-css processor. No more css naming hell.",
   "directories": {
     "lib": "./lib"
