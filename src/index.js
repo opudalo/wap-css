@@ -15,8 +15,8 @@ export default function wapCss(styles, DEV) {
       , selectors = rule.selectors
       , processed = []
 
-    for (let sel of selectors) {
-      processed.push(transformSelector(sel))
+    for (let i = 0; i < selectors.length; i++) {
+      processed.push(transformSelector(selectors[i]))
     }
     rule.selectors = processed
   })
@@ -46,7 +46,7 @@ export default function wapCss(styles, DEV) {
         , transformedPart = getTransformation(transformPrefix + part) || transformPart(part)
 
       addTransformation(transformedPrefix + part, transformedPart)
-      selector.replace(prefix + part, prefix + transformedPart)
+      selector = selector.replace(prefix + part, prefix + transformedPart)
     }
 
     return selector
