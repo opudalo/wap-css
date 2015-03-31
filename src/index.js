@@ -1,5 +1,5 @@
 import css from 'css'
-import random from 'alphanumeric'
+import md5 from 'spark-md5'
 import _ from 'lodash'
 
 const symbols = {
@@ -7,12 +7,16 @@ const symbols = {
   '#': '_'
 }
 
+function hash(val) {
+  return md5.hash(val).slice(0, 3)
+}
+
 export default function wapCss(styles, DEV) {
   let ast = css.parse(styles)
     , sheet = ast.stylesheet
     , res = []
     , transformations = {}
-    , filePrefix = random(3)
+    , filePrefix = hash(styles)
 
 
   sheet.rules.forEach((rule, i) => {
@@ -62,6 +66,6 @@ export default function wapCss(styles, DEV) {
   }
 
   function transformPart(part) {
-    return filePrefix + '-' + (DEV ? part : random(3))
+    return filePrefix + '-' + (DEV ? part : hash(part))
   }
 }

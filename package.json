@@ -49,8 +49,8 @@
     "run-sequence": "^1.0.2"
   },
   "dependencies": {
-    "alphanumeric": "^1.1.1",
     "css": "^2.2.0",
-    "lodash": "^3.6.0"
+    "lodash": "^3.6.0",
+    "spark-md5": "0.0.5"
   }
 }
