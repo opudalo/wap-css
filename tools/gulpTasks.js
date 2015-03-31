@@ -42,7 +42,7 @@ export default function (gulp, rootDir) {
       .on('error', onerror)
   )
 
-  gulp.task('test-node', () => {
+  gulp.task('test-node', ['prepublish'], () => {
     gulp.src('test/test.js')
       .pipe(mocha())
       .on('error', onerror)
