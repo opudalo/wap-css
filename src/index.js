@@ -2,6 +2,11 @@ import css from 'css'
 import random from 'alphanumeric'
 import _ from 'lodash'
 
+const symbols = {
+  '.': '',
+  '#': '_'
+}
+
 export default function wapCss(styles, DEV) {
   let ast = css.parse(styles)
     , sheet = ast.stylesheet
@@ -53,11 +58,6 @@ export default function wapCss(styles, DEV) {
   }
 
   function transformPrefix(prefix) {
-    var symbols = {
-      '.': '$',
-      '#': '_'
-    }
-
     return symbols[prefix]
   }
 

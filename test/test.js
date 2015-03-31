@@ -16,7 +16,7 @@ describe('wap-css basics', function () {
       .footer_column_service {\n  min-width: 50% !important;\n  display: inline-block !important;\n}\n
     `,
     transformations: {
-      $warning: '',
+      warning: '',
       _myid: ''
     }
   }]
@@ -33,10 +33,10 @@ describe('wap-css basics', function () {
       , style = wapCss(css)
     expect(style).to.exist
 
-    log(css, style)
+    //log(css, style)
 
     let dict = style.transformations
-    expect(dict.$warning).to.exist
+    expect(dict.warning).to.exist
     expect(dict._myid).to.exist
     done()
   })
@@ -56,8 +56,8 @@ describe('wap-css basics', function () {
     //log(css, style)
 
     let dict = style.transformations
-    expect(dict.$warning).to.exist
-    expect(dict.$warning).to.exist
+    expect(dict.warning).to.exist
+    expect(dict.warning).to.exist
     expect(dict._myid).to.exist
     done()
   })
