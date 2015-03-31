@@ -66,6 +66,6 @@ export default function wapCss(styles, DEV) {
   }
 
   function transformPart(part) {
-    return filePrefix + '-' + (DEV ? part : hash(part))
+    return '_' + filePrefix + '-' + (DEV ? part : hash(part))
   }
 }
