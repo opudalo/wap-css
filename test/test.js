@@ -11,7 +11,10 @@ describe('wap-css basics', function () {
 
   let cases = [{
     css: `div.warning { padding: 0; }
-      div#myid { padding: 0; }`,
+      div#myid { padding: 0; }
+      * {\n  box-sizing: border-box;\n}\n
+      .footer_column_service {\n  min-width: 50% !important;\n  display: inline-block !important;\n}\n
+    `,
     transformations: {
       $warning: '',
       _myid: ''
@@ -21,11 +24,16 @@ describe('wap-css basics', function () {
   it('should parse IDs and classes', function (done) {
     let css = `
       div.warning { padding: 0; }
-      div#myid { padding: 0; }`
-      , style = wapCss(css, true)
+      div#myid { padding: 0; }
+      * {
+       box-sizing: border-box;
+      }
+      .footer_column_service {\n  min-width: 50% !important;\n  display: inline-block !important;\n}\n
+    `
+      , style = wapCss(css)
     expect(style).to.exist
 
-    //log(css, style)
+    log(css, style)
 
     let dict = style.transformations
     expect(dict.$warning).to.exist
