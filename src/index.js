@@ -12,8 +12,12 @@ function hash(val) {
 }
 
 export default function wapCss(styles, DEV) {
-  let ast = css.parse(styles)
-    , sheet = ast.stylesheet
+  try {
+    var ast = css.parse(styles)
+  } catch(e) {
+    console.log(e)
+  }
+  let sheet = ast.stylesheet
     , res = []
     , transformations = {}
     , filePrefix = hash(styles)
@@ -23,6 +27,8 @@ export default function wapCss(styles, DEV) {
     let type = rule.type
       , selectors = rule.selectors
       , processed = []
+
+    if (!selectors || !selectors.length) return
 
     for (let i = 0; i < selectors.length; i++) {
       processed.push(transformSelector(selectors[i]))

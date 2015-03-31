@@ -1,69 +1,51 @@
 import 'babel/polyfill'
 import wapCss from '../src/index'
+import _ from 'lodash'
 import {expect} from 'chai'
 
-
 describe('wap-css basics', function () {
+
   it('should exist', function (done) {
     expect(wapCss).to.be.function
     done()
   })
 
   let cases = [{
-    css: `div.warning { padding: 0; }
+    label: 'should parse IDs and classes',
+    css: `
+      div.warning { padding: 0; }
       div#myid { padding: 0; }
-      * {\n  box-sizing: border-box;\n}\n
-      .footer_column_service {\n  min-width: 50% !important;\n  display: inline-block !important;\n}\n
     `,
     transformations: {
       warning: '',
       _myid: ''
     }
-  }]
+  }, {
+    label: 'should not touch comments',
+    css: `
+      /* single line comment */
 
-  it('should parse IDs and classes', function (done) {
-    let css = `
-      div.warning { padding: 0; }
-      div#myid { padding: 0; }
-      * {
-       box-sizing: border-box;
-      }
-      .footer_column_service {\n  min-width: 50% !important;\n  display: inline-block !important;\n}\n
-    `
-      , style = wapCss(css)
-    expect(style).to.exist
-
-    //log(css, style)
-
-    let dict = style.transformations
-    expect(dict.warning).to.exist
-    expect(dict._myid).to.exist
-    done()
-  })
-
-  it('should parse complex selectors', function (done) {
-    let css = `
+      /*
+      *  multi
+      *  line
+      *  comment
+      *  */
+    `,
+    transformations: {}
+  }, {
+    label: 'should parse complex selectors',
+    css: `
       div.warning > div.some#myid ~ div.some[foo="bar"]:first-child { padding: 0; }
-      div#myid > .some.warning:not(.some) { padding: 0; }`
-      , style = wapCss(css, true)
-      , transformations = {
-        $warning: '',
-        $some: '',
-        _myid: ''
-      }
-    expect(style).to.exist
-
-    //log(css, style)
-
-    let dict = style.transformations
-    expect(dict.warning).to.exist
-    expect(dict.warning).to.exist
-    expect(dict._myid).to.exist
-    done()
-  })
-
-  it('should change only IDs and classes', function (done) {
-    let css = `
+      div#myid > .some.warning:not(.some) { padding: 0; }
+    `,
+    transformations: {
+      warning: '',
+      some: '',
+      _myid: ''
+    }
+  }, {
+    label: 'should change only IDs and classes',
+    css: `
       div[foo] { top: 0; }
       div[foo="bar"] { padding: 0; }
       div[foo~="bar"] { padding: 0; }
@@ -97,15 +79,26 @@ describe('wap-css basics', function () {
       div::first-letter { padding: 0; }
       div::before { padding: 0; }
       div::after { padding: 0; }
-      div:not(some) { padding: 0; }`
-      , style = wapCss(css, true)
+      div:not(some) { padding: 0; }
+    `,
+    transformations: {}
+  }]
 
-    style.css = style.css.replace(/\s/g, '')
-    css = css.replace(/\s/g, '')
+  cases.forEach(({ label, transformations, css}) => {
 
-    //log(css, style)
-    expect(style.css).to.be.equal(css)
-    done()
+    it(label, (done) => {
+      let style = wapCss(css)
+        , _css = style.css
+        , _transformations = style.transformations
+
+      //log(_css, _transformations)
+
+      expect(_(transformations).size()).to.be.equal(_(_transformations).size())
+      _(transformations).keys()
+        .each((key) => expect(_transformations[key]).to.exist )
+
+      done()
+    })
   })
 })
 
@@ -114,3 +107,5 @@ function log(css, style) {
   console.log('Transformed:\n', style.css)
   console.log('Dictionary:\n', style.transformations)
 }
+
+
