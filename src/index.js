@@ -22,23 +22,26 @@ export default function wapCss(styles, DEV) {
     , transformations = {}
     , filePrefix = hash(styles)
 
+  sheet.rules.forEach(parseRule)
 
-  sheet.rules.forEach((rule, i) => {
+  return  {
+    transformations: transformations,
+    css: css.stringify(ast)
+  }
+
+  function parseRule (rule, i) {
     let type = rule.type
       , selectors = rule.selectors
+      , rules = rule.rules
       , processed = []
 
+    if (rules && rules.length) rules.forEach(parseRule)
     if (!selectors || !selectors.length) return
 
     for (let i = 0; i < selectors.length; i++) {
       processed.push(transformSelector(selectors[i]))
     }
     rule.selectors = processed
-  })
-
-  return  {
-    transformations: transformations,
-    css: css.stringify(ast)
   }
 
   function addTransformation(key, value) {

@@ -33,6 +33,16 @@ describe('wap-css basics', function () {
     `,
     transformations: {}
   }, {
+    label: 'should parse media queries',
+    css: `
+      @media (max-width: 600px) {
+        .media { display: none; }
+      }
+    `,
+    transformations: {
+      media: ''
+    }
+  }, {
     label: 'should parse complex selectors',
     css: `
       div.warning > div.some#myid ~ div.some[foo="bar"]:first-child { padding: 0; }
