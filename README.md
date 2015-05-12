@@ -104,3 +104,11 @@ Webpack loaders configuration
 ```js
 
 ```
+
+To ignore block within the file use comments
+```css
+  /* wapCss:ignore-start */
+  div.warning { padding: 0; }
+  div#myid { padding: 0; }
+  /* wapCss:ignore-end */
+```

@@ -11,10 +11,22 @@ describe('wap-css basics', function () {
   })
 
   let cases = [{
-    label: 'should parse IDs and classes',
+  /*  label: 'should parse IDs and classes',
     css: `
       div.warning { padding: 0; }
       div#myid { padding: 0; }
+    `,
+    transformations: {
+      warning: '',
+      _myid: ''
+    }
+  }, {*/
+    label: 'should not parse marked css',
+    css: `
+      /* wapCss:ignore-start */
+      div.warning { padding: 0; }
+      div#myid { padding: 0; }
+      /* wapCss:ignore-end */
     `,
     transformations: {
       warning: '',
@@ -32,7 +44,7 @@ describe('wap-css basics', function () {
       *  */
     `,
     transformations: {}
-  }, {
+  /*}, {
     label: 'should parse media queries',
     css: `
       @media (max-width: 600px) {
@@ -91,7 +103,7 @@ describe('wap-css basics', function () {
       div::after { padding: 0; }
       div:not(some) { padding: 0; }
     `,
-    transformations: {}
+    transformations: {}*/
   }]
 
   cases.forEach(({ label, transformations, css}) => {
@@ -101,7 +113,7 @@ describe('wap-css basics', function () {
         , _css = style.css
         , _transformations = style.transformations
 
-      //log(_css, _transformations)
+      log(_css, _transformations)
 
       expect(_(transformations).size()).to.be.equal(_(_transformations).size())
       _(transformations).keys()
@@ -112,10 +124,9 @@ describe('wap-css basics', function () {
   })
 })
 
-function log(css, style) {
+function log(css, transformations) {
   console.log('Was:\n', css)
-  console.log('Transformed:\n', style.css)
-  console.log('Dictionary:\n', style.transformations)
+  console.log('Transformed:\n', transformations)
 }
 
 

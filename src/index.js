@@ -21,6 +21,7 @@ export default function wapCss(styles, DEV) {
     , res = []
     , transformations = {}
     , filePrefix = hash(styles)
+    , ignoreBlock = false
 
   sheet.rules.forEach(parseRule)
 
@@ -36,16 +37,27 @@ export default function wapCss(styles, DEV) {
       , processed = []
 
     if (rules && rules.length) rules.forEach(parseRule)
-    if (!selectors || !selectors.length) return
+
+    if (!selectors || !selectors.length) return checkIgnoreState(rule)
 
     for (let i = 0; i < selectors.length; i++) {
-      processed.push(transformSelector(selectors[i]))
+      let selector = selectors[i]
+      processed.push(transformSelector(selector))
     }
     rule.selectors = processed
   }
 
   function addTransformation(key, value) {
     if (!transformations[key]) transformations[key] = value
+  }
+
+  function checkIgnoreState(rule) {
+    if (rule.type != 'comment') return
+    let comment = rule.comment
+      , reStart = /wapCss.ignore.start/
+      , reEnd = /wapCss.ignore.end/
+    if (reStart.test(comment)) ignoreBlock = true
+    if (reEnd.test(comment)) ignoreBlock = false
   }
 
   function getTransformation(key) {
@@ -63,6 +75,7 @@ export default function wapCss(styles, DEV) {
         , transformedPrefix = transformPrefix(prefix)
         , transformedPart = getTransformation(transformPrefix + part) || transformPart(part)
 
+      if (ignoreBlock) transformedPart = part
       addTransformation(transformedPrefix + part, transformedPart)
       selector = selector.replace(prefix + part, prefix + transformedPart)
     }
