@@ -1,6 +1,6 @@
 # wap-css
 
-Checkout examples
+Checkout [example](https://github.com/opudalo/wap-css-example) repo.
 
 ## Installation
 
@@ -98,11 +98,6 @@ let html = `
   </div>
 </div>
 `
-```
-
-Webpack loaders configuration
-```js
-
 ```
 
 To ignore block within the file use comments
