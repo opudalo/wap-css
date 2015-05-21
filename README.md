@@ -4,9 +4,7 @@ Checkout [example](https://github.com/opudalo/wap-css-example) repo.
 
 ## Installation
 
-- `npm i --save opudalo/wap-css`  
-or  
-- `bower i --save opudalo/wap-css`
+`npm i --save opudalo/wap-css`  
 
 ## Rationale
 
