@@ -8,7 +8,7 @@ Checkout [example](https://github.com/opudalo/wap-css-example) repo.
 
 ## Rationale
 
-Css class names conflict. This is so faimliar.  
+CSS class names conflict. This is so familiar.  
 ```css
 //social.css
 .social {
@@ -42,7 +42,7 @@ Unique class names to the rescue.
 }
 ```
 
-We use stylus to make it suck less.  
+We use Stylus to make it suck less.  
 ```stylus
 // social.styl
 .social
@@ -57,7 +57,7 @@ We use stylus to make it suck less.
       ...
 ```
 
-But it still suck in js or html.
+But it still sucks in js or html.
 
 ```js
 $('.social-description-text').html('Hello')
@@ -81,7 +81,7 @@ $('.social-description-text').html('Hello')
 
 ## Examples
 
-It's era of webpack, react and overall awesomeness. Lets tie our css to js/html
+It's the era of Webpack, React and overall awesomeness. Let's tie our CSS to JS/HTML.
 
 ```js
 import styles from './social.styl'
@@ -98,7 +98,7 @@ let html = `
 `
 ```
 
-To ignore block within the file use comments
+To ignore a block within the file use comments.
 ```css
   /* wapCss:ignore-start */
   div.warning { padding: 0; }
