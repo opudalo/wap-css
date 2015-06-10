@@ -8,7 +8,7 @@ const symbols = {
 }
 
 function hash(val) {
-  return md5.hash(val).slice(0, 3)
+  return md5.hash(val).slice(0, 8)
 }
 
 export default function wapCss(styles, DEV) {
