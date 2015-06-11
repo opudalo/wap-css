@@ -7,11 +7,11 @@ const symbols = {
   '#': '_'
 }
 
-function hash(val) {
-  return md5.hash(val).slice(0, 8)
+function hash(val, hashLength) {
+  return md5.hash(val).slice(0, hashLength)
 }
 
-export default function wapCss(styles, DEV) {
+export default function wapCss(styles, hashLength = 6) {
   try {
     var ast = css.parse(styles)
   } catch(e) {
@@ -20,7 +20,7 @@ export default function wapCss(styles, DEV) {
   let sheet = ast.stylesheet
     , res = []
     , transformations = {}
-    , filePrefix = hash(styles)
+    , filePrefix = hash(styles, hashLength)
     , ignoreBlock = false
 
   sheet.rules.forEach(parseRule)
@@ -88,6 +88,6 @@ export default function wapCss(styles, DEV) {
   }
 
   function transformPart(part) {
-    return '_' + filePrefix + '-' + (DEV ? part : hash(part))
+    return `_${filePrefix}-${part}`
   }
 }
