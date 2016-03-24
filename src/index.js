@@ -11,7 +11,7 @@ function hash(val, hashLength) {
   return md5.hash(val).slice(0, hashLength)
 }
 
-export default function wapCss(styles, hashLength = 6) {
+export default function wapCss(styles, hashLength = 6, hashString = styles) {
   try {
     var ast = css.parse(styles)
   } catch(e) {
@@ -20,7 +20,7 @@ export default function wapCss(styles, hashLength = 6) {
   let sheet = ast.stylesheet
     , res = []
     , transformations = {}
-    , filePrefix = hash(styles, hashLength)
+    , filePrefix = hash(hashString, hashLength)
     , ignoreBlock = false
 
   sheet.rules.forEach(parseRule)
